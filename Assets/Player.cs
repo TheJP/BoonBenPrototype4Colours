@@ -28,13 +28,11 @@ public class Player : MonoBehaviour
             // Becuase we use 3D colliders: only use the plane in front.
             if(contact.point.z > 0) { continue; }
 
-            Debug.DrawRay(contact.point, contact.normal * 5f, Color.red, 3f);
-            var angle = Vector2.SignedAngle(contact.normal, transform.right);
             Colours playerColour;
-            if (Mathf.Abs(Mathf.DeltaAngle(angle, 180)) <= 46) playerColour = Colours.Green;
-            else if (Mathf.Abs(Mathf.DeltaAngle(angle, -90)) <= 46) playerColour = Colours.Orange;
-            else if (Mathf.Abs(Mathf.DeltaAngle(angle, 90)) <= 46) playerColour = Colours.Blue;
-            else if (Mathf.Abs(Mathf.DeltaAngle(angle, 0)) <= 46) playerColour = Colours.Purple;
+            if (Vector2.Angle(contact.normal, -transform.right) <= 46) playerColour = Colours.Green;
+            else if (Vector2.Angle(contact.normal, transform.up) <= 46) playerColour = Colours.Orange;
+            else if (Vector2.Angle(contact.normal, -transform.up) <= 46) playerColour = Colours.Blue;
+            else if (Vector2.Angle(contact.normal, transform.right) <= 46) playerColour = Colours.Purple;
             else
             {
                 Debug.LogWarning("Should not be reached");
